@@ -1,7 +1,7 @@
 # Личный проект «Киноман» [![Build status][travis-image]][travis-url]
 
 * Студент: [Наиль Бадиуллин](https://up.htmlacademy.ru/ecmascript/11/user/1115009).
-* Наставник: `Неизвестно`.
+* Наставник: [Даниил Царев](https://htmlacademy.ru/profile/id945835).
 
 ---
 

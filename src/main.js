@@ -1,8 +1,7 @@
 'use strict';
 
-const HEADER_CONTAINER = document.querySelector(`.header`);
-const MAIN_CONTAINER = document.querySelector(`.main`);
-const FOOTER_CONTAINER = document.querySelector(`.footer`);
+const headerContainer = document.querySelector(`.header`);
+const mainContainer = document.querySelector(`.main`);
 
 const BASE_FILMS_COUNT = 5;
 const EXTRA_FILMS_COUNT = 2;
@@ -11,7 +10,7 @@ const render = (container, markup, position = `beforeEnd`) => {
   container.insertAdjacentHTML(position, markup);
 };
 
-const setUserLeverTemplate = () => (
+const getUserLeverTemplate = () => (
   `
   <section class="header__profile profile">
     <p class="profile__rating">Movie Buff</p>
@@ -20,7 +19,7 @@ const setUserLeverTemplate = () => (
   `
 );
 
-const setNavigationTemplate = () => (
+const getNavigationTemplate = () => (
   `<nav class="main-navigation">
     <div class="main-navigation__items">
       <a href="#all" class="main-navigation__item main-navigation__item--active">All movies</a>
@@ -38,13 +37,9 @@ const setNavigationTemplate = () => (
   </ul>`
 );
 
-const setFilmsBlockTemplate = () => (
-  `
-  <section class="films"></section>
-  `
-);
+const getFilmsBlockTemplate = () => `<section class="films"></section>`;
 
-const setFilmsListTemplate = () => (
+const getFilmsListTemplate = () => (
   `
   <section class="films-list">
     <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
@@ -53,7 +48,7 @@ const setFilmsListTemplate = () => (
   `
 );
 
-const setFilmCardTemplate = () => (
+const getFilmCardTemplate = () => (
   `
     <article class="film-card">
       <h3 class="film-card__title">The Dance of Life</h3>
@@ -75,11 +70,9 @@ const setFilmCardTemplate = () => (
   `
 );
 
-const setShowMoreButtonTemplate = () => (
-  `<button class="films-list__show-more">Show more</button>`
-);
+const getShowMoreButtonTemplate = () => `<button class="films-list__show-more">Show more</button>`;
 
-const setFilmsExtraContainer = () => (
+const getFilmsExtraContainer = () => (
   `
   <section class="films-list--extra">
     <h2 class="films-list__title">Top rated</h2>
@@ -89,7 +82,7 @@ const setFilmsExtraContainer = () => (
   `
 );
 
-const setFilmsCommentedContainer = () => (
+const getFilmsCommentedContainer = () => (
   `
   <section class="films-list--extra">
     <h2 class="films-list__title">Most commented</h2>
@@ -99,7 +92,7 @@ const setFilmsCommentedContainer = () => (
   `
 );
 
-const setExtraFilmTemplate = () => (
+const getExtraFilmTemplate = () => (
   [`
     <article class="film-card">
       <h3 class="film-card__title">The Man with the Golden Arm</h3>
@@ -110,7 +103,7 @@ const setExtraFilmTemplate = () => (
         <span class="film-card__genre">Drama</span>
       </p>
       <img src="./images/posters/the-man-with-the-golden-arm.jpg" alt="" class="film-card__poster">
-      <p class="film-card__description">Frankie Machine (Frank Sinatra) is released from the federal Narcotic Farm in Lexington, Kentucky with a set of drums and a new outlook on…</p>
+      <p class="film-card__description">Frankie Machine (Frank Sinatra) is released from the federal Narcotic Farm in Lexington, Kentucky with a get of drums and a new outlook on…</p>
       <a class="film-card__comments">18 comments</a>
       <form class="film-card__controls">
         <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist">Add to watchlist</button>
@@ -140,7 +133,7 @@ const setExtraFilmTemplate = () => (
     `]
 );
 
-const setCommentedFilmTemplate = () => (
+const getCommentedFilmTemplate = () => (
   [`
     <article class="film-card">
       <h3 class="film-card__title">Santa Claus Conquers the Martians</h3>
@@ -182,7 +175,7 @@ const setCommentedFilmTemplate = () => (
   ]
 );
 
-const setFilmDetailsTemplate = () => (
+const getFilmDetailsTemplate = () => (
   `
   <section class="film-details">
   <form class="film-details__inner" action="" method="get">
@@ -271,7 +264,7 @@ const setFilmDetailsTemplate = () => (
               <img src="./images/emoji/smile.png" width="55" height="55" alt="emoji-smile">
             </span>
             <div>
-              <p class="film-details__comment-text">Interesting setting and a good cast</p>
+              <p class="film-details__comment-text">Interesting getting and a good cast</p>
               <p class="film-details__comment-info">
                 <span class="film-details__comment-author">Tim Macoveev</span>
                 <span class="film-details__comment-day">2019/12/31 23:59</span>
@@ -356,22 +349,22 @@ const setFilmDetailsTemplate = () => (
   `
 );
 
-render(HEADER_CONTAINER, setUserLeverTemplate());
-render(MAIN_CONTAINER, setNavigationTemplate());
-render(MAIN_CONTAINER, setFilmsBlockTemplate());
+render(headerContainer, getUserLeverTemplate());
+render(mainContainer, getNavigationTemplate());
+render(mainContainer, getFilmsBlockTemplate());
 
-const FILMS_CONTAINER = MAIN_CONTAINER.querySelector(`.films`);
-render(FILMS_CONTAINER, setFilmsListTemplate());
+const FILMS_CONTAINER = mainContainer.querySelector(`.films`);
+render(FILMS_CONTAINER, getFilmsListTemplate());
 
 const FILMS_LIST_CONTAINER = FILMS_CONTAINER.querySelector(`.films-list__container`);
 
 for (let i = 0; i < BASE_FILMS_COUNT; i++) {
-  render(FILMS_LIST_CONTAINER, setFilmCardTemplate());
+  render(FILMS_LIST_CONTAINER, getFilmCardTemplate());
 }
-render(FILMS_LIST_CONTAINER, setShowMoreButtonTemplate());
+render(FILMS_LIST_CONTAINER, getShowMoreButtonTemplate());
 
-render(FILMS_CONTAINER, setFilmsExtraContainer());
-render(FILMS_CONTAINER, setFilmsCommentedContainer());
+render(FILMS_CONTAINER, getFilmsExtraContainer());
+render(FILMS_CONTAINER, getFilmsCommentedContainer());
 
 const FILM_EXTRA_LIST = FILMS_CONTAINER
   .querySelectorAll(`.films-list--extra`)[0]
@@ -382,9 +375,9 @@ const FILM_COMMENTED_LIST = FILMS_CONTAINER
   .querySelector(`.films-list__container`);
 
 for (let i = 0; i < EXTRA_FILMS_COUNT; i++) {
-  render(FILM_EXTRA_LIST, setExtraFilmTemplate()[i]);
-  render(FILM_COMMENTED_LIST, setCommentedFilmTemplate()[i]);
+  render(FILM_EXTRA_LIST, getExtraFilmTemplate()[i]);
+  render(FILM_COMMENTED_LIST, getCommentedFilmTemplate()[i]);
 }
 
-render(document.body, setFilmDetailsTemplate());
+render(document.body, getFilmDetailsTemplate());
 

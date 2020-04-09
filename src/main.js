@@ -1,10 +1,8 @@
-import {
-  getUserLeverTemplate,
-  getNavigationTemplate,
-  getStatisticsTemplate,
-  getSortTemplate,
-  getFilmsTemplate,
-} from './components';
+import {getUserLeverTemplate} from './components/user-level';
+import {getNavigationTemplate} from './components/navigation';
+import {getStatisticsTemplate} from './components/statistics';
+import {getSortTemplate} from './components/sort';
+import {getFilmsTemplate} from './components/films';
 
 const headerContainer = document.querySelector(`.header`);
 const mainContainer = document.querySelector(`.main`);

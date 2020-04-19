@@ -7,15 +7,15 @@ const getShowMoreButtonTemplate = () => (
   `<button class="films-list__show-more">Show more</button>`
 );
 
-const getFilmCardTemplate = ({title, poster, description}) => {
+const getFilmCardTemplate = ({title, poster, description, rating, year, genre}) => {
   return (`
     <article class="film-card">
       <h3 class="film-card__title">${title}</h3>
-      <p class="film-card__rating">8.3</p>
+      <p class="film-card__rating">${rating}</p>
       <p class="film-card__info">
-        <span class="film-card__year">1929</span>
+        <span class="film-card__year">${year}</span>
         <span class="film-card__duration">1h 55m</span>
-        <span class="film-card__genre">Musical</span>
+        <span class="film-card__genre">${genre}</span>
       </p>
       <img src="./images/posters/${poster}" alt="${title}" class="film-card__poster">
       <p class="film-card__description">${description}</p>

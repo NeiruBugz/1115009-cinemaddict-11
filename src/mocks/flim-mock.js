@@ -17,6 +17,6 @@ export const generateMovie = () => {
     rating: generateRandomFloat(1, 10),
     year: generateRandomYear(MIN_DATE, MAX_DATE),
     duration: `${generateRandomInteger(1, 2)}h ${generateRandomInteger(0, 59)}m`,
-    comments: generateEntityMock(generateRandomInteger(1, 4), generateComment).length,
+    comments: generateEntityMock(generateRandomInteger(1, 4), generateComment),
   };
 };

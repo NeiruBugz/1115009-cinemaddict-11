@@ -4,7 +4,7 @@ import {generateRandomArray, generateRandomDate, generateRandomInteger} from '..
 export const generateComment = () => {
   return {
     author: COMMENT_AUTHOR[generateRandomInteger(0, 5)],
-    comment: generateRandomArray(COMMENT_SENNTENCES, generateRandomInteger(0, 5)),
+    comment: generateRandomArray(COMMENT_SENNTENCES, generateRandomInteger(1, 5)),
     emoji: COMMENT_EMOJIES[generateRandomInteger(0, 3)],
     date: generateRandomDate(),
   };

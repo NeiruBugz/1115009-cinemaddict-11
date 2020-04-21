@@ -1,5 +1,4 @@
 const generateCommentFeed = (comments) => {
-  debugger;
   return `
   <ul class="film-details__comments-list">
   ${comments.map(({emoji, author, date, comment}) => {
@@ -94,7 +93,7 @@ export const getFilmDetailsPopupTemplate = ({
                 <tr class="film-details__row">
                   <td class="film-details__term">Genres</td>
                   <td class="film-details__cell">
-                    <span class="film-details__genre">Drama</span>
+                    <span class="film-details__genre">${genre}</span>
                     <span class="film-details__genre">Film-Noir</span>
                     <span class="film-details__genre">Mystery</span></td>
                 </tr>

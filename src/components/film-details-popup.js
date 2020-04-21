@@ -35,7 +35,7 @@ export const getFilmDetailsPopupTemplate = ({
   releaseDate = ``,
   duration,
   country = ``,
-  genre = [],
+  genre = ``,
   fullDescription = ``,
   ageRating = `18+`,
   comments = [],

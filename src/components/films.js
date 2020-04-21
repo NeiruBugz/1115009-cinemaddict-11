@@ -1,7 +1,8 @@
-import {generateMoviesMock} from '../mocks/flim-mock';
 import {MOVIES_AMOUNT} from '../consts';
+import {generateEntityMock} from '../utils/helpers';
+import {generateMovie} from '../mocks/flim-mock';
 
-const MOVIES = generateMoviesMock(MOVIES_AMOUNT);
+const MOVIES = generateEntityMock(MOVIES_AMOUNT, generateMovie);
 
 const getShowMoreButtonTemplate = () => (
   `<button class="films-list__show-more">Show more</button>`

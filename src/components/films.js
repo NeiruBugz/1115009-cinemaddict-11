@@ -2,8 +2,6 @@ import {MOVIES_AMOUNT} from '../consts';
 import {generateEntityMock} from '../utils/helpers';
 import {generateMovie} from '../mocks/flim-mock';
 
-const MOVIES = generateEntityMock(MOVIES_AMOUNT, generateMovie);
-
 const getShowMoreButtonTemplate = () => (
   `<button class="films-list__show-more">Show more</button>`
 );
@@ -30,10 +28,10 @@ const getFilmCardTemplate = ({title, poster, description, rating, releaseDate, g
   `);
 };
 
-const getFilmsListTemplate = (filmsAmount) => {
+const getFilmsListTemplate = (filmsAmount, movies) => {
   let filmsListTemplate = ``;
 
-  const splicedMovies = MOVIES.splice(0, filmsAmount);
+  const splicedMovies = movies.splice(0, filmsAmount);
 
   for (let i = 0; i < filmsAmount; i++) {
     filmsListTemplate = `${filmsListTemplate}${getFilmCardTemplate(splicedMovies[i])}`;
@@ -42,14 +40,14 @@ const getFilmsListTemplate = (filmsAmount) => {
   return filmsListTemplate;
 };
 
-export const getFilmsTemplate = () => {
+export const getFilmsTemplate = (movies) => {
   const BASE_FILMS_COUNT = 5;
   const EXTRA_FILMS_COUNT = 2;
 
-  const filmsListTemplate = getFilmsListTemplate(BASE_FILMS_COUNT);
+  const filmsListTemplate = getFilmsListTemplate(BASE_FILMS_COUNT, movies);
   const showMoreButtonTemplate = getShowMoreButtonTemplate();
-  const filmsExtraRatedTemplate = getFilmsListTemplate(EXTRA_FILMS_COUNT);
-  const filmsExtraCommentedTemplate = getFilmsListTemplate(EXTRA_FILMS_COUNT);
+  const filmsExtraRatedTemplate = getFilmsListTemplate(EXTRA_FILMS_COUNT, movies);
+  const filmsExtraCommentedTemplate = getFilmsListTemplate(EXTRA_FILMS_COUNT, movies);
 
   return (
     `

@@ -5,6 +5,8 @@ import {getSortTemplate} from './components/sort';
 import {getFilmsTemplate} from './components/films';
 import {getFilmDetailsPopupTemplate} from './components/film-details-popup';
 import {generateMovie} from './mocks/flim-mock';
+import {generateEntityMock} from './utils/helpers';
+import {MOVIES_AMOUNT} from './consts';
 
 const headerContainer = document.querySelector(`.header`);
 const mainContainer = document.querySelector(`.main`);
@@ -17,5 +19,5 @@ render(headerContainer, getUserLeverTemplate());
 render(mainContainer, getNavigationTemplate());
 render(mainContainer, getStatisticsTemplate());
 render(mainContainer, getSortTemplate());
-render(mainContainer, getFilmsTemplate());
+render(mainContainer, getFilmsTemplate(generateEntityMock(MOVIES_AMOUNT, generateMovie)));
 render(document.body, getFilmDetailsPopupTemplate(generateMovie()));

@@ -1,3 +1,5 @@
+import {createElement} from '../utils/helpers';
+
 const generateCommentFeed = (comments) => {
   return `
   <ul class="film-details__comments-list">
@@ -157,3 +159,26 @@ export const getFilmDetailsPopupTemplate = ({
     </section>
   `
 );
+
+export default class FilmDetailsPopup {
+  constructor(movie) {
+    this._movie = movie;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getFilmDetailsPopupTemplate(this._movie);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

@@ -1,3 +1,5 @@
+import {createElement} from '../utils/helpers';
+
 export const getSortTemplate = () => (
   `
     <ul class="sort">
@@ -7,3 +9,25 @@ export const getSortTemplate = () => (
     </ul>
   `
 );
+
+export default class Sort {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getSortTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

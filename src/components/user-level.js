@@ -1,3 +1,5 @@
+import {createElement} from '../utils/helpers';
+
 export const getUserLeverTemplate = ({userLevel}) => (
   `
     <section class="header__profile profile">
@@ -6,3 +8,25 @@ export const getUserLeverTemplate = ({userLevel}) => (
     </section>
   `
 );
+
+export default class UserLevel {
+  constructor(user) {
+    this._user = user;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getUserLeverTemplate(this._user);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

@@ -1,8 +1,5 @@
 import FilmCard from './film-card';
-
-const getShowMoreButtonTemplate = () => (
-  `<button class="films-list__show-more">Show more</button>`
-);
+import ShowMoreButton from './show-more-button';
 
 const getFilmsListTemplate = (filmsAmount, movies) => {
   let filmsListTemplate = ``;
@@ -21,7 +18,7 @@ export const getFilmsTemplate = (movies) => {
   const EXTRA_FILMS_COUNT = 2;
 
   const filmsListTemplate = getFilmsListTemplate(BASE_FILMS_COUNT, movies);
-  const showMoreButtonTemplate = getShowMoreButtonTemplate();
+  const showMoreButtonTemplate = new ShowMoreButton().getTemplate();
   const filmsExtraRatedTemplate = getFilmsListTemplate(EXTRA_FILMS_COUNT, movies);
   const filmsExtraCommentedTemplate = getFilmsListTemplate(EXTRA_FILMS_COUNT, movies);
 

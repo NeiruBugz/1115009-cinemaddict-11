@@ -1,4 +1,4 @@
-import {getFilmCardTemplate} from './film-card';
+import FilmCard from './film-card';
 
 const getShowMoreButtonTemplate = () => (
   `<button class="films-list__show-more">Show more</button>`
@@ -6,11 +6,11 @@ const getShowMoreButtonTemplate = () => (
 
 const getFilmsListTemplate = (filmsAmount, movies) => {
   let filmsListTemplate = ``;
-
   const splicedMovies = movies.splice(0, filmsAmount);
 
   for (let i = 0; i < filmsAmount; i++) {
-    filmsListTemplate = `${filmsListTemplate}${getFilmCardTemplate(splicedMovies[i])}`;
+    const newFilm = new FilmCard(splicedMovies[i]);
+    filmsListTemplate = `${filmsListTemplate}${newFilm.getTemplate()}`;
   }
 
   return filmsListTemplate;
@@ -51,3 +51,10 @@ export const getFilmsTemplate = (movies) => {
     `
   );
 };
+
+export default class FilmsList {
+  constructor(template) {
+    this._template = template;
+    this._element = null;
+  }
+}

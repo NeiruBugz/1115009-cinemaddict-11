@@ -22,3 +22,15 @@ export const generateRandomDate = () => {
 export const generateEntityMock = (amount, cb) => {
   return new Array(amount).fill({}).map(cb);
 };
+
+export const generateRandomBoolean = () => {
+  const value = generateRandomInteger(0, 1);
+  return value !== 0;
+};
+
+export const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};

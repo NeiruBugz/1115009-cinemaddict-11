@@ -1,7 +1,7 @@
 import {MAX_DATE, MIN_DATE} from '../consts';
 import {
   generateEntityMock,
-  generateRandomArray,
+  generateRandomArray, generateRandomBoolean,
   generateRandomFloat,
   generateRandomInteger,
   generateRandomYear
@@ -81,7 +81,7 @@ export const generateMovie = () => {
     title: MOVIE_TITLES[generateRandomInteger(0, 6)],
     originalTitle: MOVIE_TITLES[generateRandomInteger(0, 6)],
     poster: MOVIE_POSTERS[generateRandomInteger(0, 6)],
-    description: generateRandomArray(MOVIE_DESCRIPTION_TEMPLATES, generateRandomInteger(1, 5)),
+    description: generateRandomArray(MOVIE_DESCRIPTION_TEMPLATES, generateRandomInteger(1, 3)),
     genre: MOVIE_GENRES[generateRandomInteger(0, 6)],
     rating: generateRandomFloat(1, 10),
     releaseDate: generateRandomYear(MIN_DATE, MAX_DATE),
@@ -89,9 +89,12 @@ export const generateMovie = () => {
     comments: generateEntityMock(generateRandomInteger(1, 4), generateComment),
     country: COUNTRIES[generateRandomInteger(0, COUNTRIES.length)],
     director: DIRECTORS[generateRandomInteger(0, DIRECTORS.length)],
-    writers: [],
+    writers: DIRECTORS[generateRandomInteger(0, DIRECTORS.length)],
     actors: generateRandomArray(ACTORS, generateRandomInteger(0, ACTORS.length)),
-    fullDescription: ``,
+    fullDescription: generateRandomArray(MOVIE_DESCRIPTION_TEMPLATES, generateRandomInteger(1, 10)),
     ageRating: AGE_RATING[generateRandomInteger(0, 3)],
+    isWatchlist: generateRandomBoolean(),
+    isWatched: generateRandomBoolean(),
+    isFavorite: generateRandomBoolean(),
   };
 };

@@ -27,32 +27,29 @@ const main = documentBody.querySelector(`.main`);
 
 const renderFilmCard = (filmCardContainer, movie) => {
   const filmCard = new FilmCard(movie).getElement();
-  // debugger;
-  // const filmCardPoster = filmCard.querySelector(`.film-card__poster`);
-  // const filmCardTitle = filmCard.querySelector(`.film-card__title`);
-  // const filmCardComments = filmCard.querySelector(`.film-card__comments`);
-  // debugger;
-  //
-  // const filmDetailsPopup = new FilmDetailsPopup(movie);
-  // const filmDetailsPopupElement = filmDetailsPopup.getElement();
-  // const filmDetailsCloseButton = filmDetailsPopupElement.querySelector(`.film-details__close-btn`);
-  // debugger;
+  const filmCardPoster = filmCard.querySelector(`.film-card__poster`);
+  const filmCardTitle = filmCard.querySelector(`.film-card__title`);
+  const filmCardComments = filmCard.querySelector(`.film-card__comments`);
 
-  // const showPopup = () => {
-  //   documentBody.appendChild(filmDetailsPopup);
-  //   documentBody.classList.add(`hide-overflow`);
-  // };
-  //
-  // const removePopup = () => {
-  //   documentBody.removeChild(filmDetailsPopup);
-  //   documentBody.classList.remove(`hide-overflow`);
-  // };
-  //
-  // filmCardPoster.addEventListener(`click`, showPopup);
-  // filmCardComments.addEventListener(`click`, showPopup);
-  // filmCardTitle.addEventListener(`click`, showPopup);
-  //
-  // filmDetailsCloseButton.addEventListener(`click`, removePopup);
+  const filmDetailsPopup = new FilmDetailsPopup(movie);
+  const filmDetailsPopupElement = filmDetailsPopup.getElement();
+  const filmDetailsCloseButton = filmDetailsPopupElement.querySelector(`.film-details__close-btn`);
+
+  const showPopup = () => {
+    documentBody.appendChild(filmDetailsPopupElement);
+    documentBody.classList.add(`hide-overflow`);
+  };
+
+  const removePopup = () => {
+    documentBody.removeChild(filmDetailsPopupElement);
+    documentBody.classList.remove(`hide-overflow`);
+  };
+
+  filmCardPoster.addEventListener(`click`, showPopup);
+  filmCardComments.addEventListener(`click`, showPopup);
+  filmCardTitle.addEventListener(`click`, showPopup);
+
+  filmDetailsCloseButton.addEventListener(`click`, removePopup);
 
   render(filmCardContainer, filmCard);
 };

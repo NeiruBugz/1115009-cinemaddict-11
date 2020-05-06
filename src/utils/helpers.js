@@ -41,14 +41,13 @@ export const render = (container, DOMElement, position = RENDER_POSITION.BEFORE_
     case RENDER_POSITION.BEFORE_END:
       container.append(DOMElement);
       break;
-    default:
-      break;
   }
 };
 
 export const createElement = (template) => {
-  const newElement = document.createElement(`div`);
-  newElement.innerHTML = template;
+  const element = document.createElement(`div`);
+  const cleanedHTML = template.trim();
+  element.innerHTML = cleanedHTML;
 
-  return newElement.firstChild;
+  return element.firstChild;
 };

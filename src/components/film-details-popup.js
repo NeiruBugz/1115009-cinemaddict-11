@@ -40,8 +40,13 @@ export const getFilmDetailsPopupTemplate = ({
   fullDescription = ``,
   ageRating = `18+`,
   comments = [],
-}) => (
-  `
+  isWatchlist,
+  isWatched,
+  isFavorite
+}) => {
+
+  return (
+    `
     <section class="film-details">
       <form class="film-details__inner" action="" method="get">
         <div class="form-details__top-container">
@@ -74,7 +79,7 @@ export const getFilmDetailsPopupTemplate = ({
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Writers</td>
-                  <td class="film-details__cell">${writers.map((writer) => writer)}</td>
+                  <td class="film-details__cell">${Array.isArray(writers) ? writers.map((writer) => writer) : writers}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Actors</td>
@@ -108,13 +113,13 @@ export const getFilmDetailsPopupTemplate = ({
           </div>
 
           <section class="film-details__controls">
-            <input type="checkbox" class="film-details__control-input visually-hidden" id="watchlist" name="watchlist">
+            <input type="checkbox" class="film-details__control-input visually-hidden" id="watchlist" name="watchlist" ${isWatchlist && `checked`}>
             <label for="watchlist" class="film-details__control-label film-details__control-label--watchlist">Add to watchlist</label>
 
-            <input type="checkbox" class="film-details__control-input visually-hidden" id="watched" name="watched">
+            <input type="checkbox" class="film-details__control-input visually-hidden" id="watched" name="watched" ${isWatched && `checked`}>
             <label for="watched" class="film-details__control-label film-details__control-label--watched">Already watched</label>
 
-            <input type="checkbox" class="film-details__control-input visually-hidden" id="favorite" name="favorite">
+            <input type="checkbox" class="film-details__control-input visually-hidden" id="favorite" name="favorite" ${isFavorite && `checked`}>
             <label for="favorite" class="film-details__control-label film-details__control-label--favorite">Add to favorites</label>
           </section>
         </div>
@@ -158,7 +163,8 @@ export const getFilmDetailsPopupTemplate = ({
       </form>
     </section>
   `
-);
+  );
+};
 
 export default class FilmDetailsPopup {
   constructor(movie) {

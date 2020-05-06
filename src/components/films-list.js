@@ -1,57 +1,41 @@
-import FilmCard from './film-card';
-import ShowMoreButton from './show-more-button';
+import {createElement} from '../utils/helpers';
 
-const getFilmsListTemplate = (filmsAmount, movies) => {
-  let filmsListTemplate = ``;
-  const splicedMovies = movies.splice(0, filmsAmount);
+const getFilmsTemplate = ({type, title}) => {
+  const isAllList = type === `all`;
 
-  for (let i = 0; i < filmsAmount; i++) {
-    const newFilm = new FilmCard(splicedMovies[i]);
-    filmsListTemplate = `${filmsListTemplate}${newFilm.getTemplate()}`;
-  }
-
-  return filmsListTemplate;
-};
-
-export const getFilmsTemplate = (movies) => {
-  const BASE_FILMS_COUNT = 5;
-  const EXTRA_FILMS_COUNT = 2;
-
-  const filmsListTemplate = getFilmsListTemplate(BASE_FILMS_COUNT, movies);
-  const showMoreButtonTemplate = new ShowMoreButton().getTemplate();
-  const filmsExtraRatedTemplate = getFilmsListTemplate(EXTRA_FILMS_COUNT, movies);
-  const filmsExtraCommentedTemplate = getFilmsListTemplate(EXTRA_FILMS_COUNT, movies);
+  const listClass = isAllList ? `films-list` : `films-list--${type}`;
+  const titleClass = isAllList ? `films-list__title visually-hidden` : `films-list--title`;
 
   return (
-    `
-      <section class="films">
-        <section class="films-list">
-          <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
-          <div class="films-list__container">
-            ${filmsListTemplate}
-          </div>
-          ${showMoreButtonTemplate}
-        </section>
-        <section class="films-list--extra">
-          <h2 class="films-list__title">Top rated</h2>
-          <div class="films-list__container">
-            ${filmsExtraRatedTemplate}
-          </div>
-        </section>
-        <section class="films-list--extra">
-          <h2 class="films-list__title">Most commented</h2>
-          <div class="films-list__container">
-            ${filmsExtraCommentedTemplate}
-          </div>
-        </section>
-      </section>
+    `<section class="${listClass}">
+        <h2 class="${titleClass}">${title}</h2>
+        <div class="films-list__container"></div>
+    </section>
     `
   );
 };
 
 export default class FilmsList {
-  constructor(template) {
-    this._template = template;
+  constructor(list) {
+    this._list = list;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getFilmsTemplate(this._list);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
     this._element = null;
   }
 }
+
+

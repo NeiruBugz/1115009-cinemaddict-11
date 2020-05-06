@@ -1,7 +1,8 @@
 import {MAX_DATE, MIN_DATE} from '../consts';
 import {
   generateEntityMock,
-  generateRandomArray, generateRandomBoolean,
+  generateRandomArray,
+  generateRandomBoolean,
   generateRandomFloat,
   generateRandomInteger,
   generateRandomYear
@@ -76,13 +77,28 @@ export const ACTORS = [
 
 export const AGE_RATING = [`6+`, `12+`, `0+`, `18+`];
 
+export const MOVIE_LISTS = [
+  {
+    type: `all`,
+    title: `All movies. Upcoming`,
+  },
+  {
+    type: `extra`,
+    title: `Top rated`,
+  },
+  {
+    type: `extra`,
+    title: `Most commented`,
+  }
+];
+
 export const generateMovie = () => {
   return {
     title: MOVIE_TITLES[generateRandomInteger(0, 6)],
     originalTitle: MOVIE_TITLES[generateRandomInteger(0, 6)],
     poster: MOVIE_POSTERS[generateRandomInteger(0, 6)],
     description: generateRandomArray(MOVIE_DESCRIPTION_TEMPLATES, generateRandomInteger(1, 3)),
-    genre: MOVIE_GENRES[generateRandomInteger(0, 6)],
+    genres: generateRandomArray(MOVIE_GENRES, generateRandomInteger(0, 2)).join(` `),
     rating: generateRandomFloat(1, 10),
     releaseDate: generateRandomYear(MIN_DATE, MAX_DATE),
     duration: `${generateRandomInteger(1, 2)}h ${generateRandomInteger(0, 59)}m`,
@@ -90,7 +106,7 @@ export const generateMovie = () => {
     country: COUNTRIES[generateRandomInteger(0, COUNTRIES.length)],
     director: DIRECTORS[generateRandomInteger(0, DIRECTORS.length)],
     writers: DIRECTORS[generateRandomInteger(0, DIRECTORS.length)],
-    actors: generateRandomArray(ACTORS, generateRandomInteger(0, ACTORS.length)),
+    actors: generateRandomArray(ACTORS, generateRandomInteger(0, 4)),
     fullDescription: generateRandomArray(MOVIE_DESCRIPTION_TEMPLATES, generateRandomInteger(1, 10)),
     ageRating: AGE_RATING[generateRandomInteger(0, 3)],
     isWatchlist: generateRandomBoolean(),

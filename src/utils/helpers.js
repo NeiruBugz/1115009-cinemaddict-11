@@ -1,3 +1,8 @@
+export const RENDER_POSITION = {
+  AFTER_BEGIN: `afterbegin`,
+  BEFORE_END: `beforeend`,
+};
+
 export const generateRandomInteger = (min, max) => {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
@@ -21,4 +26,28 @@ export const generateRandomDate = () => {
 
 export const generateEntityMock = (amount, cb) => {
   return new Array(amount).fill({}).map(cb);
+};
+
+export const generateRandomBoolean = () => {
+  const value = generateRandomInteger(0, 1);
+  return value !== 0;
+};
+
+export const render = (container, DOMElement, position = RENDER_POSITION.BEFORE_END) => {
+  switch (position) {
+    case RENDER_POSITION.AFTER_BEGIN:
+      container.prepend(DOMElement);
+      break;
+    case RENDER_POSITION.BEFORE_END:
+      container.append(DOMElement);
+      break;
+  }
+};
+
+export const createElement = (template) => {
+  const element = document.createElement(`div`);
+  const cleanedHTML = template.trim();
+  element.innerHTML = cleanedHTML;
+
+  return element.firstChild;
 };

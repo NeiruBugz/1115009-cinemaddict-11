@@ -1,3 +1,5 @@
+import {createElement} from '../utils/helpers';
+
 const generateCommentFeed = (comments) => {
   return `
   <ul class="film-details__comments-list">
@@ -38,8 +40,13 @@ export const getFilmDetailsPopupTemplate = ({
   fullDescription = ``,
   ageRating = `18+`,
   comments = [],
-}) => (
-  `
+  isWatchlist,
+  isWatched,
+  isFavorite
+}) => {
+
+  return (
+    `
     <section class="film-details">
       <form class="film-details__inner" action="" method="get">
         <div class="form-details__top-container">
@@ -72,7 +79,7 @@ export const getFilmDetailsPopupTemplate = ({
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Writers</td>
-                  <td class="film-details__cell">${writers.map((writer) => writer)}</td>
+                  <td class="film-details__cell">${Array.isArray(writers) ? writers.map((writer) => writer) : writers}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Actors</td>
@@ -106,20 +113,20 @@ export const getFilmDetailsPopupTemplate = ({
           </div>
 
           <section class="film-details__controls">
-            <input type="checkbox" class="film-details__control-input visually-hidden" id="watchlist" name="watchlist">
+            <input type="checkbox" class="film-details__control-input visually-hidden" id="watchlist" name="watchlist" ${isWatchlist && `checked`}>
             <label for="watchlist" class="film-details__control-label film-details__control-label--watchlist">Add to watchlist</label>
 
-            <input type="checkbox" class="film-details__control-input visually-hidden" id="watched" name="watched">
+            <input type="checkbox" class="film-details__control-input visually-hidden" id="watched" name="watched" ${isWatched && `checked`}>
             <label for="watched" class="film-details__control-label film-details__control-label--watched">Already watched</label>
 
-            <input type="checkbox" class="film-details__control-input visually-hidden" id="favorite" name="favorite">
+            <input type="checkbox" class="film-details__control-input visually-hidden" id="favorite" name="favorite" ${isFavorite && `checked`}>
             <label for="favorite" class="film-details__control-label film-details__control-label--favorite">Add to favorites</label>
           </section>
         </div>
 
         <div class="form-details__bottom-container">
           <section class="film-details__comments-wrap">
-            <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">4</span></h3>
+            <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${comments.length}</span></h3>
 
             ${generateCommentFeed(comments)}
             <div class="film-details__new-comment">
@@ -156,4 +163,28 @@ export const getFilmDetailsPopupTemplate = ({
       </form>
     </section>
   `
-);
+  );
+};
+
+export default class FilmDetailsPopup {
+  constructor(movie) {
+    this._movie = movie;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getFilmDetailsPopupTemplate(this._movie);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

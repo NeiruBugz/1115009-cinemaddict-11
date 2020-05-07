@@ -4,13 +4,13 @@ export const RENDER_POSITION = {
 };
 
 
-export const render = (container, DOMElement, position = RENDER_POSITION.BEFORE_END) => {
+export const render = (container, component, position = RENDER_POSITION.BEFORE_END) => {
   switch (position) {
     case RENDER_POSITION.AFTER_BEGIN:
-      container.prepend(DOMElement);
+      container.prepend(component.getElement());
       break;
     case RENDER_POSITION.BEFORE_END:
-      container.append(DOMElement);
+      container.append(component.getElement());
       break;
   }
 };

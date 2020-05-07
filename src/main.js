@@ -14,7 +14,7 @@ import {generateNavigationItems} from './mocks/navigation-mock';
 import {generateUserLevel} from './mocks/user-mock';
 
 import {
-  COMMENTED_MOVIES_AMOUNT,
+  COMMENTED_MOVIES_AMOUNT, ESC_KEY,
   MOVIES_AMOUNT,
   ON_LOAD_MOVIES_AMOUNT,
   ON_START_MOVIES_AMOUNT,
@@ -50,6 +50,11 @@ const renderFilmCard = (filmCardContainer, movie) => {
   filmCardTitle.addEventListener(`click`, showPopup);
 
   filmDetailsCloseButton.addEventListener(`click`, removePopup);
+  documentBody.addEventListener(`keydown`, (evt) => {
+    if (evt.key === ESC_KEY) {
+      removePopup();
+    }
+  });
 
   render(filmCardContainer, filmCard);
 };

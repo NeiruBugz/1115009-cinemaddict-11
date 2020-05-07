@@ -8,7 +8,7 @@ import Navigation from './components/navigation';
 import Sort from './components/sort';
 
 
-import {generateEntityMock, render} from './utils/helpers';
+import {generateEntityMock} from './utils/helpers';
 import {generateMovie, MOVIE_LISTS} from './mocks/flim-mock';
 import {generateNavigationItems} from './mocks/navigation-mock';
 import {generateUserLevel} from './mocks/user-mock';
@@ -20,20 +20,19 @@ import {
   ON_START_MOVIES_AMOUNT,
   RATED_MOVIES_AMOUNT
 } from './consts';
+import Statistics from './components/statistics';
+import {render} from './utils/renderHelpers';
 
 const documentBody = document.body;
 const header = documentBody.querySelector(`.header`);
 const main = documentBody.querySelector(`.main`);
 
 const renderFilmCard = (filmCardContainer, movie) => {
-  const filmCard = new FilmCard(movie).getElement();
-  const filmCardPoster = filmCard.querySelector(`.film-card__poster`);
-  const filmCardTitle = filmCard.querySelector(`.film-card__title`);
-  const filmCardComments = filmCard.querySelector(`.film-card__comments`);
+  const filmCardElement = new FilmCard(movie);
+  const filmCard = filmCardElement.getElement();
 
   const filmDetailsPopup = new FilmDetailsPopup(movie);
   const filmDetailsPopupElement = filmDetailsPopup.getElement();
-  const filmDetailsCloseButton = filmDetailsPopupElement.querySelector(`.film-details__close-btn`);
 
   const showPopup = () => {
     documentBody.appendChild(filmDetailsPopupElement);
@@ -45,14 +44,16 @@ const renderFilmCard = (filmCardContainer, movie) => {
     documentBody.classList.remove(`hide-overflow`);
   };
 
-  filmCardPoster.addEventListener(`click`, showPopup);
-  filmCardComments.addEventListener(`click`, showPopup);
-  filmCardTitle.addEventListener(`click`, showPopup);
+  filmCardElement.setOpenPopupEvent(showPopup);
 
-  filmDetailsCloseButton.addEventListener(`click`, removePopup);
+  filmDetailsPopup.setClosePopupEvent(() => {
+    removePopup();
+    documentBody.removeEventListener(`keydown`, removePopup);
+  });
   documentBody.addEventListener(`keydown`, (evt) => {
     if (evt.key === ESC_KEY) {
       removePopup();
+      documentBody.removeEventListener(`keydown`, removePopup);
     }
   });
 
@@ -108,6 +109,7 @@ render(header, new UserLevel(generateUserLevel()).getElement());
 const navigation = generateNavigationItems();
 render(main, new Navigation(navigation).getElement());
 render(main, new Sort().getElement());
+render(main, new Statistics().getElement());
 const films = new Films();
 render(main, films.getElement());
 renderFilms(films, movies);

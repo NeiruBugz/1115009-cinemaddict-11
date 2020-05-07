@@ -1,4 +1,4 @@
-import {createElement} from '../utils/helpers';
+import AbstractComponent from './abstract';
 
 export const getUserLeverTemplate = ({userLevel}) => (
   `
@@ -9,24 +9,13 @@ export const getUserLeverTemplate = ({userLevel}) => (
   `
 );
 
-export default class UserLevel {
+export default class UserLevel extends AbstractComponent {
   constructor(user) {
+    super();
     this._user = user;
-    this._element = null;
   }
 
   getTemplate() {
     return getUserLeverTemplate(this._user);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

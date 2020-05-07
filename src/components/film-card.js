@@ -1,4 +1,4 @@
-import {createElement} from '../utils/helpers';
+import AbstractComponent from './abstract';
 
 const getFilmCardTemplate = ({
   title,
@@ -39,25 +39,19 @@ const getFilmCardTemplate = ({
   `);
 };
 
-export default class FilmCard {
+export default class FilmCard extends AbstractComponent {
   constructor(movie) {
+    super();
     this._movie = movie;
-    this._element = null;
   }
 
   getTemplate() {
     return getFilmCardTemplate(this._movie);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setOpenPopupEvent(cb) {
+    this.getElement().querySelector(`.film-card__poster`).addEventListener(`click`, cb);
+    this.getElement().querySelector(`.film-card__title`).addEventListener(`click`, cb);
+    this.getElement().querySelector(`.film-card__comments`).addEventListener(`click`, cb);
   }
 }

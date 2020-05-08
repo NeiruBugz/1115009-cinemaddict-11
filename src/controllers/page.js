@@ -30,9 +30,9 @@ const renderFilmCard = (filmCardContainer, movie) => {
     documentBody.classList.remove(`hide-overflow`);
   };
 
-  filmCardElement.setOpenPopupEvent(showPopup);
+  filmCardElement.setCardClickListeners(showPopup);
 
-  filmDetailsPopup.setClosePopupEvent(() => {
+  filmDetailsPopup.setClosePopupListener(() => {
     removePopup();
     documentBody.removeEventListener(`keydown`, removePopup);
   });
@@ -84,7 +84,7 @@ export default class Page {
 
       render(filmListElement, this._showMoreButton);
 
-      this._showMoreButton.setEventHandler(() => {
+      this._showMoreButton.setShowMoreClickListener(() => {
         const prevFilmsCount = showingMoviesAmount;
         showingMoviesAmount += ON_LOAD_MOVIES_AMOUNT;
 

@@ -49,7 +49,7 @@ export default class FilmCard extends AbstractComponent {
     return getFilmCardTemplate(this._movie);
   }
 
-  setOpenPopupEvent(cb) {
+  setCardClickListeners(cb) {
     this.getElement().querySelector(`.film-card__poster`).addEventListener(`click`, cb);
     this.getElement().querySelector(`.film-card__title`).addEventListener(`click`, cb);
     this.getElement().querySelector(`.film-card__comments`).addEventListener(`click`, cb);

@@ -3,6 +3,11 @@ export const RENDER_POSITION = {
   BEFORE_END: `beforeend`,
 };
 
+export const SORT_TYPES = {
+  DEFAULT: `default`,
+  RATING: `rating`,
+  DATE: `date`
+};
 
 export const render = (container, component, position = RENDER_POSITION.BEFORE_END) => {
   switch (position) {

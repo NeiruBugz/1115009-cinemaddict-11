@@ -7,11 +7,12 @@ import {
   ON_START_MOVIES_AMOUNT,
   RATED_MOVIES_AMOUNT
 } from '../consts';
-import {remove, render} from '../utils/renderHelpers';
+import {remove, render, SORT_TYPES} from '../utils/renderHelpers';
 import FilmsList from '../components/films-list';
 import ShowMoreButton from '../components/show-more-button';
 import {MOVIE_LISTS} from '../mocks/flim-mock';
 import NoFilms from '../components/no-films';
+import Sort from '../components/sort';
 
 const renderFilmCard = (filmCardContainer, movie) => {
   const documentBody = document.body;
@@ -30,12 +31,13 @@ const renderFilmCard = (filmCardContainer, movie) => {
     documentBody.classList.remove(`hide-overflow`);
   };
 
-  filmCardElement.setOpenPopupEvent(showPopup);
+  filmCardElement.setCardClickListeners(showPopup);
 
-  filmDetailsPopup.setClosePopupEvent(() => {
+  filmDetailsPopup.setClosePopupListener(() => {
     removePopup();
     documentBody.removeEventListener(`keydown`, removePopup);
   });
+
   documentBody.addEventListener(`keydown`, (evt) => {
     if (evt.key === ESC_KEY) {
       removePopup();
@@ -44,6 +46,26 @@ const renderFilmCard = (filmCardContainer, movie) => {
   });
 
   render(filmCardContainer, filmCardElement);
+};
+
+// eslint-disable-next-line no-unused-vars
+const getSortedFilms = (films, sortType, from, to) => {
+  let sortedFilms = [];
+  const showingFilms = films.slice();
+
+  switch (sortType) {
+    case SORT_TYPES.DATE:
+      sortedFilms = showingFilms.sort((a, b) => b.releaseDate - a.releaseDate);
+      break;
+    case SORT_TYPES.RATING:
+      sortedFilms = showingFilms.sort((a, b) => Number(b.rating) - Number(a.rating));
+      break;
+    default:
+      sortedFilms = showingFilms;
+      break;
+  }
+
+  return sortedFilms.slice(from, to);
 };
 
 const renderFilms = (filmsComponent, movies) => {
@@ -55,10 +77,13 @@ export default class Page {
     this._container = container;
     this._noFilms = new NoFilms();
     this._showMoreButton = new ShowMoreButton();
+    this._sort = new Sort();
   }
 
   render(films) {
     const container = this._container.getElement();
+
+    render(container, this._sort);
 
     let showingMoviesAmount = ON_START_MOVIES_AMOUNT;
     const showingMovies = films.slice(0, showingMoviesAmount);
@@ -67,8 +92,6 @@ export default class Page {
       .slice()
       .sort((a, b) => b.comments.length - a.comments.length)
       .slice(0, COMMENTED_MOVIES_AMOUNT);
-
-    const moviesToRender = [showingMovies, ratedMovies, commentedMovies];
 
     if (films.length === 0) {
       render(container, this._noFilms);
@@ -84,7 +107,7 @@ export default class Page {
 
       render(filmListElement, this._showMoreButton);
 
-      this._showMoreButton.setEventHandler(() => {
+      this._showMoreButton.setShowMoreClickListener(() => {
         const prevFilmsCount = showingMoviesAmount;
         showingMoviesAmount += ON_LOAD_MOVIES_AMOUNT;
 
@@ -103,12 +126,25 @@ export default class Page {
       const filmsListContainer = filmsListComponent.getElement().querySelector(`.films-list__container`);
       renderFilms(filmsListContainer, moviesList);
 
+      this._sort.setSortChangeHandler((sortType) => {
+        showingMoviesAmount = ON_LOAD_MOVIES_AMOUNT;
+
+        const sortedFilms = getSortedFilms(films, sortType, 0, films.length);
+        filmsListContainer.innerHTML = ``;
+
+        renderFilms(filmsListContainer, sortedFilms.slice(0, showingMoviesAmount));
+
+        renderShowMoreButton();
+      });
+
       if (list.type !== `all`) {
         return;
       }
 
       renderShowMoreButton();
     };
+
+    const moviesToRender = [showingMovies, ratedMovies, commentedMovies];
 
     MOVIE_LISTS.map((item, idx) => renderFilmsList(item, moviesToRender[idx]));
   }

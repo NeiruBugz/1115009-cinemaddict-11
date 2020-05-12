@@ -12,6 +12,7 @@ import FilmsList from '../components/films-list';
 import ShowMoreButton from '../components/show-more-button';
 import {MOVIE_LISTS} from '../mocks/flim-mock';
 import NoFilms from '../components/no-films';
+import Sort from '../components/sort';
 
 const renderFilmCard = (filmCardContainer, movie) => {
   const documentBody = document.body;
@@ -36,6 +37,7 @@ const renderFilmCard = (filmCardContainer, movie) => {
     removePopup();
     documentBody.removeEventListener(`keydown`, removePopup);
   });
+
   documentBody.addEventListener(`keydown`, (evt) => {
     if (evt.key === ESC_KEY) {
       removePopup();
@@ -55,10 +57,13 @@ export default class Page {
     this._container = container;
     this._noFilms = new NoFilms();
     this._showMoreButton = new ShowMoreButton();
+    this._sort = new Sort();
   }
 
   render(films) {
     const container = this._container.getElement();
+
+    render(container, this._sort);
 
     let showingMoviesAmount = ON_START_MOVIES_AMOUNT;
     const showingMovies = films.slice(0, showingMoviesAmount);

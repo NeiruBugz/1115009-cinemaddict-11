@@ -3,6 +3,11 @@ export const RENDER_POSITION = {
   BEFORE_END: `beforeend`,
 };
 
+export const SORT_TYPES = {
+  DEFAULT: `default`,
+  RATING: `rating`,
+  DATE: `date`
+};
 
 export const render = (container, component, position = RENDER_POSITION.BEFORE_END) => {
   switch (position) {
@@ -26,4 +31,13 @@ export const createElement = (template) => {
 export const remove = (component) => {
   component.getElement().remove();
   component.removeElement();
+};
+
+export const setActiveElement = (container, element, activeClass) => {
+  const activeElement = container.querySelector(`.${{activeClass}}`);
+
+  if (!element.classList.contains(`${activeClass}`)) {
+    activeElement.classList.remove(activeClass);
+    element.classList.add(activeClass);
+  }
 };

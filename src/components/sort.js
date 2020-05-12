@@ -1,5 +1,5 @@
 import AbstractComponent from './abstract';
-import {setActiveElement, SORT_TYPES} from '../utils/renderHelpers';
+import {SORT_TYPES} from '../utils/renderHelpers';
 
 const getSortItemMarkup = (sortType, isActive) => {
   const activeClass = isActive ? `sort__button--active` : ``;

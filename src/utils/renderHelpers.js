@@ -32,12 +32,3 @@ export const remove = (component) => {
   component.getElement().remove();
   component.removeElement();
 };
-
-export const setActiveElement = (container, element, activeClass) => {
-  const activeElement = container.querySelector(`.${{activeClass}}`);
-
-  if (!element.classList.contains(`${activeClass}`)) {
-    activeElement.classList.remove(activeClass);
-    element.classList.add(activeClass);
-  }
-};

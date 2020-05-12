@@ -7,7 +7,7 @@ import {
   ON_START_MOVIES_AMOUNT,
   RATED_MOVIES_AMOUNT
 } from '../consts';
-import {remove, render} from '../utils/renderHelpers';
+import {remove, render, SORT_TYPES} from '../utils/renderHelpers';
 import FilmsList from '../components/films-list';
 import ShowMoreButton from '../components/show-more-button';
 import {MOVIE_LISTS} from '../mocks/flim-mock';
@@ -46,6 +46,25 @@ const renderFilmCard = (filmCardContainer, movie) => {
   });
 
   render(filmCardContainer, filmCardElement);
+};
+
+const getSortedFilms = (films, sortType, from, to) => {
+  let sortedFilms = [];
+  const showingFilms = films.slice();
+
+  switch (sortType) {
+    case SORT_TYPES.RATING:
+      sortedFilms = showingFilms.sort((a, b) => b.releaseDate - a.releaseDate);
+      break;
+    case SORT_TYPES.DATE:
+      sortedFilms = showingFilms.sort((a, b) => Number(b.rating) - Number(a.rating));
+      break;
+    default:
+      sortedFilms = showingFilms;
+      break;
+  }
+
+  return sortedFilms.slice(from, to);
 };
 
 const renderFilms = (filmsComponent, movies) => {

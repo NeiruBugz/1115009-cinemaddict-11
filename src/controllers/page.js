@@ -48,6 +48,7 @@ const renderFilmCard = (filmCardContainer, movie) => {
   render(filmCardContainer, filmCardElement);
 };
 
+// eslint-disable-next-line no-unused-vars
 const getSortedFilms = (films, sortType, from, to) => {
   let sortedFilms = [];
   const showingFilms = films.slice();
@@ -126,6 +127,18 @@ export default class Page {
 
       const filmsListContainer = filmsListComponent.getElement().querySelector(`.films-list__container`);
       renderFilms(filmsListContainer, moviesList);
+
+      this._sort.setSortChangeHandler((sortType) => {
+        showingMoviesAmount = ON_LOAD_MOVIES_AMOUNT;
+
+        const sortedFilms = getSortedFilms(showingMovies, sortType, 0, showingMoviesAmount);
+
+        filmsListContainer.innerHTML = ``;
+
+        moviesToRender[0] = sortedFilms;
+
+        renderShowMoreButton();
+      });
 
       if (list.type !== `all`) {
         return;
